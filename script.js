@@ -6,6 +6,8 @@ const products = [
         price: 42000, 
         priceCard: 46200,
         category: 'pijamas', 
+        subCategory: 'corto',
+        badge: 'Nuevo 🎀',
         sizes: ['S', 'M', 'L', 'XL'],
         images: [
             'img/camisero-animalprint/WhatsApp Image 2026-03-29 at 13.12.41.jpeg',
@@ -20,6 +22,7 @@ const products = [
         price: 42000, 
         priceCard: 46200,
         category: 'pijamas', 
+        subCategory: 'corto',
         sizes: ['S', 'M', 'L', 'XL'],
         images: [
             'img/camisero-negro/3A5EAD30-8E6A-4266-B9AB-0B85A606E9FD (1).JPEG',
@@ -28,16 +31,18 @@ const products = [
     },
     { 
         id: 3, 
-        name: 'Camisero Rayado', 
-        price: 42000, 
-        priceCard: 46200,
+        name: 'Camisolin Rayado', 
+        price: 30000, 
+        priceCard: 36000,
         category: 'pijamas', 
-        sizes: ['S', 'M', 'L', 'XL'],
+        subCategory: 'corto',
+        badge: 'Tendencia ✨',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
         images: [
-            'img/camisero-rayado/camisolin-rayado-1.jpg',
-            'img/camisero-rayado/camisolin-rayado-2.jpg',
-            'img/camisero-rayado/camisolin-rayado-3.jpg',
-            'img/camisero-rayado/camisolin-rayado-4.jpg'
+            'img/camisolin-rayado/camisolin-rayado-1.jpg',
+            'img/camisolin-rayado/camisolin-rayado-2.jpg',
+            'img/camisolin-rayado/camisolin-rayado-3.jpg',
+            'img/camisolin-rayado/camisolin-rayado-4.jpg'
         ]
     },
     { 
@@ -46,6 +51,7 @@ const products = [
         price: 42000, 
         priceCard: 46200,
         category: 'pijamas', 
+        subCategory: 'corto',
         sizes: ['S', 'M', 'L', 'XL'],
         images: [
             'img/camisero-rosa/WhatsApp Image 2026-03-29 at 13.13.01 (1).jpeg',
@@ -60,6 +66,7 @@ const products = [
         price: 36000, 
         priceCard: 39600,
         category: 'pijamas', 
+        subCategory: 'corto',
         sizes: ['S', 'M', 'L', 'XL'],
         images: [
             'img/conjunto-musculosa-negro/WhatsApp Image 2026-03-26 at 22.25.02 (1).jpeg',
@@ -74,6 +81,7 @@ const products = [
         price: 36000, 
         priceCard: 39600,
         category: 'pijamas', 
+        subCategory: 'corto',
         sizes: ['S', 'M', 'L', 'XL'],
         images: [
             'img/conjunto-musculosa-rayado/WhatsApp Image 2026-03-29 at 13.13.41.jpeg',
@@ -83,7 +91,7 @@ const products = [
     },
     { 
         id: 7, 
-        name: 'Bata Suave', 
+        name: 'Bata Rayada', 
         price: 45000, 
         priceCard: 49500,
         category: 'batas', 
@@ -91,6 +99,45 @@ const products = [
         images: [
             'img/bata/bata.jpeg',
             'img/bata/WhatsApp Image 2026-03-30 at 10.11.03.jpeg'
+        ]
+    },
+    { 
+        id: 8, 
+        name: 'Conjunto Camisero Rayado', 
+        price: 42000, 
+        priceCard: 46200,
+        category: 'pijamas', 
+        subCategory: 'corto',
+        badge: 'Nuevo 💗',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
+        images: [
+            'img/camisero-rayado/WhatsApp Image 2026-03-30 at 23.13.45.jpeg',
+            'img/camisero-rayado/WhatsApp Image 2026-03-30 at 23.13.46 (1).jpeg',
+            'img/camisero-rayado/WhatsApp Image 2026-03-30 at 23.13.46 (2).jpeg',
+            'img/camisero-rayado/WhatsApp Image 2026-03-30 at 23.13.46.jpeg'
+        ]
+    },
+    { 
+        id: 9, 
+        name: 'Bata Negra', 
+        price: 45000, 
+        priceCard: 49500,
+        category: 'batas', 
+        sizes: ['Talle Único'],
+        images: [
+            'img/bata-negra/WhatsApp Image 2026-03-31 at 12.54.32.jpeg',
+            'img/bata-negra/WhatsApp Image 2026-03-31 at 12.54.33.jpeg'
+        ]
+    },
+    { 
+        id: 10, 
+        name: 'Bata Rosa', 
+        price: 45000, 
+        priceCard: 49500,
+        category: 'batas', 
+        sizes: ['Talle Único'],
+        images: [
+            'img/bata-Rosa/WhatsApp Image 2026-03-31 at 12.54.33.jpeg'
         ]
     }
 ];
@@ -247,7 +294,7 @@ function renderProducts(filter = 'all', searchTerm = '') {
     
     let filtered = products;
     if (filter !== 'all') {
-        filtered = filtered.filter(p => p.category === filter);
+        filtered = filtered.filter(p => p.category === filter || p.subCategory === filter);
     }
     if (searchTerm) {
         filtered = filtered.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -265,6 +312,7 @@ function renderProducts(filter = 'all', searchTerm = '') {
         const dots = product.images.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>`).join('');
         
         card.innerHTML = `
+            ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
             <div class="product-slider-container" id="slider-${product.id}">
                 <div class="product-slides" style="transform: translateX(0%)">
                     ${slides}
@@ -420,12 +468,48 @@ checkoutBtn.addEventListener('click', () => {
 cartFloatingIcon.addEventListener('click', () => toggleCart(true));
 closeCart.addEventListener('click', () => toggleCart(false));
 cartOverlay.addEventListener('click', () => toggleCart(false));
+document.getElementById('continue-shopping').addEventListener('click', () => toggleCart(false));
 
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
+        const target = e.currentTarget;
         document.querySelector('.filter-btn.active').classList.remove('active');
-        e.target.classList.add('active');
-        renderProducts(e.target.dataset.filter, searchInput.value);
+        target.classList.add('active');
+        
+        const filter = target.dataset.filter;
+        const subFiltersValue = document.getElementById('sub-filters');
+        
+        // Show sub-filters only when "Pijamas" is selected
+        if (filter === 'pijamas') {
+            subFiltersValue.style.display = 'block';
+            setTimeout(() => {
+                subFiltersValue.style.transform = 'translateY(0)';
+                subFiltersValue.style.opacity = '1';
+            }, 10);
+            
+            // Set "Todo" as active sub-filter by default
+            document.querySelectorAll('.sub-filter-btn').forEach(s => s.classList.remove('active'));
+            const defaultSub = document.querySelector('.sub-filter-btn[data-sub="pijamas"]');
+            if(defaultSub) defaultSub.classList.add('active');
+        } else {
+            subFiltersValue.style.transform = 'translateY(-10px)';
+            subFiltersValue.style.opacity = '0';
+            setTimeout(() => subFiltersValue.style.display = 'none', 300);
+        }
+        
+        renderProducts(filter, searchInput.value);
+    });
+});
+
+// Event Listeners for Sub-filter buttons
+document.querySelectorAll('.sub-filter-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const target = e.currentTarget;
+        document.querySelector('.sub-filter-btn.active').classList.remove('active');
+        target.classList.add('active');
+        
+        const subFilter = target.dataset.sub;
+        renderProducts(subFilter, searchInput.value);
     });
 });
 
@@ -495,6 +579,13 @@ function filterCategory(cat) {
 }
 
 // Init
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    setTimeout(() => {
+        preloader.classList.add('hidden');
+    }, 1000); // 1s to enjoy the bow
+});
+
 renderProducts();
 renderCart();
 revealSections(); // Check for visible sections on load
